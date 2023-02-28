@@ -3,7 +3,7 @@
 // Crate an array
 // Use Math functions to generate a random number to get the item from the array
 
-const listOfChoices = ["Rock", "Paper", "Scissors"];
+const listOfChoices = ["rock", "paper", "scissors"];
 
 function getComputerChoice() {
   return listOfChoices[Math.floor(Math.random() * listOfChoices.length)];
@@ -14,9 +14,11 @@ function getComputerChoice() {
 // Return a string that declares the winner of the round
 // The input function should be case-insensitive
 function playRound(playerSelection, computerSelection) {
-  // your code here!
+  if(playerSelection === computerSelection) {
+    return "It's a tie!"
+  }
 }
 
-const playerSelection = "rock";
+const playerSelection = prompt("Please enter your choice: ").toLowerCase();
 const computerSelection = getComputerChoice();
 console.log(playRound(playerSelection, computerSelection));
