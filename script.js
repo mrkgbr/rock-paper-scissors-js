@@ -12,13 +12,21 @@
 // Variables
 const listOfChoices = ["rock", "paper", "scissors"];
 let playerScore = 0;
-let playerSelection = "";
-let computerSelection = "";
+let playerSelection;
+let computerSelection;
 
 // Generate a random number then multiply it with the length of the list then round it to the floor
 // If the list length is 3, then it will generate 1, 2 or 3.
+function random(number) {
+  return Math.floor(Math.random() * number);
+}
+
 function getComputerChoice() {
-  return listOfChoices[Math.floor(Math.random() * listOfChoices.length)];
+  return listOfChoices[random(listOfChoices.length)];
+}
+
+function upperFirstLetter(text) {
+  return text[0].toUpperCase() + text.slice(1);
 }
 
 // Compares the given choices and gives back the result
@@ -30,21 +38,19 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
   if (playerSelection === computerSelection) {
     return "It's a tie!";
-  } else if (playerSelection === "rock" && computerSelection === "scissors") {
+  } else if (
+    (playerSelection === "rock" && computerSelection === "scissors") ||
+    (playerSelection === "scissors" && computerSelection === "paper") ||
+    (playerSelection === "paper" && computerSelection === "rock")
+  ) {
     playerScore++;
-    return "You Won! Rock beats Scissors!";
-  } else if (playerSelection === "scissors" && computerSelection === "paper") {
-    playerScore++;
-    return "You Won! Scissors beats Paper!";
-  } else if (playerSelection === "paper" && computerSelection === "rock") {
-    playerScore++;
-    return "You Won! Paper beats Rock!";
+    return `You Won! ${upperFirstLetter(
+      playerSelection
+    )} beats ${upperFirstLetter(computerSelection)}!`;
   } else {
-    computerSelection =
-      computerSelection[0].toUpperCase() + computerSelection.slice(1);
-    playerSelection =
-      playerSelection[0].toUpperCase() + playerSelection.slice(1);
-    return `You Lose! ${computerSelection} beats ${playerSelection}`;
+    return `You Lose! ${upperFirstLetter(
+      computerSelection
+    )} beats ${upperFirstLetter(playerSelection)}!`;
   }
 }
 
