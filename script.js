@@ -12,6 +12,7 @@
 // Variables
 const listOfChoices = ["rock", "paper", "scissors"];
 let playerScore = 0;
+let computerScore = 0;
 let playerSelection;
 let computerSelection;
 
@@ -35,44 +36,65 @@ function upperFirstLetter(text) {
 // scissors beats paper
 // paper beats rock
 // keeps track the user score
-function playRound(playerSelection, computerSelection) {
+
+function playRound() {
+  playerSelection = this.textContent.toLowerCase();
+  computerSelection = getComputerChoice();
+  output.textContent = "";
   if (playerSelection === computerSelection) {
-    return "It's a tie!";
+    output.textContent += "It's a tie! \n";
   } else if (
     (playerSelection === "rock" && computerSelection === "scissors") ||
     (playerSelection === "scissors" && computerSelection === "paper") ||
     (playerSelection === "paper" && computerSelection === "rock")
   ) {
     playerScore++;
-    return `You Won! ${upperFirstLetter(
+    output.textContent += `You've won this round! ${upperFirstLetter(
       playerSelection
-    )} beats ${upperFirstLetter(computerSelection)}!`;
+    )} beats ${upperFirstLetter(computerSelection)}! \n`;
   } else {
-    return `You Lose! ${upperFirstLetter(
+    output.textContent += `You've lost this round! ${upperFirstLetter(
       computerSelection
-    )} beats ${upperFirstLetter(playerSelection)}!`;
+    )} beats ${upperFirstLetter(playerSelection)}! \n`;
+    computerScore++;
+  }
+  output.textContent += `Your Score is: ${playerScore}. Computer score is: ${computerScore}`;
+  if (playerScore === 5 || computerScore === 5) {
+    let winner;
+    playerScore === 5 ? (winner = "Player") : (winner = "Computer");
+    const newDiv = document.createElement("div");
+    newDiv.textContent = `Game Over! ${winner} won!`;
+    output.appendChild(newDiv);
   }
 }
+
+const buttons = document.querySelectorAll("button");
+const output = document.querySelector("#result");
+output.textContent = "";
+
+buttons.forEach((button) => {
+  button.addEventListener("click", playRound);
+});
 
 // 5 round game
 // Asks user choice
 // Input validation
 // Generates computer choice
-function game() {
-  for (let i = 0; i < 5; i++) {
-    while (true) {
-      playerSelection = prompt("Please enter your choice: ").toLowerCase();
-      if (listOfChoices.includes(playerSelection)) {
-        break;
-      } else {
-        console.log("Wrong answer. Try it again. Rock, Paper or Scissor");
-      }
-    }
-    computerSelection = getComputerChoice();
-    console.log(playRound(playerSelection, computerSelection));
-    console.log(`Your score is ${playerScore} after round ${i + 1}`);
-  }
-  console.log(`The Game is Over. Your final score is ${playerScore}`);
-}
+// function game() {
+//   for (let i = 0; i < 5; i++) {
+//     while (true) {
+//       playerSelection = prompt("Please enter your choice: ").toLowerCase();
+//       if (listOfChoices.includes(playerSelection)) {
+//         break;
+//       } else {
+//         console.log("Wrong answer. Try it again. Rock, Paper or Scissor");
+//       }
+//     }
+//     computerSelection = getComputerChoice();
+//     console.log(playRound(playerSelection, computerSelection));
+//     console.log(`Your score is ${playerScore} after round ${i + 1}`);
+//   }
+//   console.log(`The Game is Over. Your final score is ${playerScore}`);
+// }
 
-game();
+// game();
