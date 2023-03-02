@@ -65,6 +65,9 @@ function playRound() {
     const newDiv = document.createElement("div");
     newDiv.textContent = `Game Over! ${winner} won!`;
     output.appendChild(newDiv);
+    buttons.forEach((button) => {
+      button.removeEventListener("click", playRound);
+    });
   }
 }
 
